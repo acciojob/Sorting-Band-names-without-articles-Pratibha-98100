@@ -1,40 +1,32 @@
 //your code here
-let touristSpots = ['The Virupaksha Temple', 'Victoria Memorial', 'Tajmahal'];
+let bandNames = ["The Beatles", "Rolling Stones", "Led Zeppelin", "Pink Floyd", "The Who", "The Doors"];
 
 // Function to remove articles from band names
-function removeArticles(name) {
-  // List of articles to be excluded
-  const articles = ['a', 'an', 'the'];
-  
-  // Splitting the name into individual words
-  const words = name.split(' ');
-  
-  // Checking if the first word is an article
+function removeArticle(bandName) {
+  // List of articles to remove
+  let articles = ["a", "an", "the"];
+  // Split band name into words
+  let words = bandName.split(" ");
+  // Check if first word is an article
   if (articles.includes(words[0].toLowerCase())) {
-    // Removing the first word
+    // Remove the article
     words.shift();
   }
-  
-  // Joining the remaining words back into a string
-  const updatedName = words.join(' ');
-  
-  return updatedName;
+  // Join the remaining words and return the modified band name
+  return words.join(" ");
 }
 
-// Sorting the band names in lexicographic order excluding articles
-bandNames.sort((a, b) => removeArticles(a).localeCompare(removeArticles(b)));
+// Sort the band names in lexicographic order excluding articles
+bandNames.sort(function(a, b) {
+  return removeArticle(a).localeCompare(removeArticle(b));
+});
 
-// Creating the HTML list
-let htmlList = '<ul id="band">';
+// Get the ul element with id 'band'
+let ulElement = document.getElementById("band");
 
-// Adding each band name as a list item
-for (let name of bandNames) {
-  htmlList += '<li>' + name + '</li>';
+// Loop through the sorted band names and add them as li elements to the ul element
+for (let i = 0; i < bandNames.length; i++) {
+  let liElement = document.createElement("li");
+  liElement.textContent = bandNames[i];
+  ulElement.appendChild(liElement);
 }
-
-// Closing the HTML list
-htmlList += '</ul>';
-
-console.log(htmlList);
-
-
