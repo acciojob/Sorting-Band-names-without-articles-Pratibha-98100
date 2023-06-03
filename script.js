@@ -1,28 +1,15 @@
-function removeArticle(bandName) {
-  // List of articles to remove
-  let articles = ["a", "an", "the"];
-  // Split band name into words
-  let words = bandName.split(" ");
-  // Check if first word is an article
-  if (articles.includes(words[0].toLowerCase())) {
-    // Remove the article
-    words.shift();
-  }
-  // Join the remaining words and return the modified band name
-  return words.join(" ");
+const bands = ["The Rolling Stones", "Pink Floyd", "The Beatles", "Led Zeppelin", "Nirvana"];
+
+function stripArticle(name) {
+  return name.replace(/^(a |an |the )/i, "").trim();
 }
 
-// Sort the band names in lexicographic order excluding articles
-bandNames.sort(function(a, b) {
-  return removeArticle(a).localeCompare(removeArticle(b));
+const sortedBands = bands.sort((a, b) => stripArticle(a) > stripArticle(b) ? 1 : -1);
+
+// Render the sorted band names without articles
+const ul = document.querySelector("ul");
+sortedBands.forEach(band => {
+  const li = document.createElement("li");
+  li.textContent = band;
+  ul.appendChild(li);
 });
-
-// Get the ul element with id 'band'
-let ulElement = document.getElementById("band");
-
-// Loop through the sorted band names and add them as li elements to the ul element
-for (let i = 0; i < bandNames.length; i++) {
-  let liElement = document.createElement("li");
-  liElement.textContent = bandNames[i];
-  ulElement.appendChild(liElement);
-}
